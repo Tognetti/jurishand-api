@@ -11,3 +11,4 @@ app.listen(PORT, function() {
     console.log('Running on PORT ' + PORT);
 });
 
+module.exports = app;

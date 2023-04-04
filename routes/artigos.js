@@ -5,7 +5,7 @@ const db = require("../db.js");
 
 router.get('/artigos', (req, res) => {
     db.query('SELECT * FROM artigo ORDER BY publicacao DESC', (error, results) => {
-        if (error) throw error;
+        if (error) return res.status(500).send('Erro ao acessar o banco de dados');
         res.send(results);
     });
 });
@@ -13,7 +13,7 @@ router.get('/artigos', (req, res) => {
 router.get('/artigos/categoria/:categoria', (req, res) => {
     const categoria = req.params.categoria;
     db.query(`SELECT * FROM artigo WHERE categoria = '${categoria}'`, (error, results) => {
-        if (error) throw error;
+        if (error) return res.status(500).send('Erro ao acessar o banco de dados');
         res.send(results);
     });
 });
@@ -21,7 +21,7 @@ router.get('/artigos/categoria/:categoria', (req, res) => {
 router.get('/artigos/titulo/:termo', (req, res) => {
     const termo = req.params.termo;
     db.query(`SELECT * FROM artigo WHERE titulo LIKE '%${termo}%'`, (error, results) => {
-        if (error) throw error;
+        if (error) return res.status(500).send('Erro ao acessar o banco de dados');
         res.send(results);
     });
 });
@@ -29,7 +29,7 @@ router.get('/artigos/titulo/:termo', (req, res) => {
 router.get('/artigos/conteudo/:termo', (req, res) => {
     const termo = req.params.termo;
     db.query(`SELECT * FROM artigo WHERE conteudo LIKE '%${termo}%'`, (error, results) => {
-        if (error) throw error;
+        if (error) return res.status(500).send('Erro ao acessar o banco de dados');
         res.send(results);
     });
 });
