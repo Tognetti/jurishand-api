@@ -1,16 +1,22 @@
 const request = require('supertest');
-const app = require('../app');
+const { app, server } = require('../app');
 const db = require('../db');
 
 describe('/artigos', () => {
 
+    beforeAll(() => {
+        db.query('DELETE FROM artigo', (err, res) => {
+            if (err) throw err;
+        });
+    });
+
     beforeEach(() => {
-        let st = "INSERT INTO artigo (titulo, autor, conteudo, publicacao, categoria) VALUES ?";
+        let statement = "INSERT INTO artigo (titulo, autor, conteudo, publicacao, categoria) VALUES ?";
         let values = [
             ['Artigo civil 1 resumo', 'Autor 1', 'Conteúdo do artigo 1 loremipsum', '2022-01-01', 'Civil'],
             ['Artigo penal 2 completo', 'Autor 2', 'Conteúdo do artigo 2', '2022-02-01', 'Penal']
         ];
-        db.query(st, [values], (err, res) => {
+        db.query(statement, [values], (err, res) => {
             if (err) throw err;
         });
     });
@@ -19,6 +25,11 @@ describe('/artigos', () => {
         db.query('DELETE FROM artigo', (err, res) => {
             if (err) throw err;
         });
+    });
+
+    afterAll(async () => {
+        server.close();
+        db.destroy();
     });
 
     test('Deve retornar artigos ordenados por data de publicação', async () => {

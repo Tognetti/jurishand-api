@@ -7,8 +7,8 @@ const PORT = process.env.PORT;
 const artigosRoute = require('./routes/artigos')
 app.use('/', artigosRoute)
 
-app.listen(PORT, function() {
+let server = app.listen(PORT, function() {
     console.log('Running on PORT ' + PORT);
 });
 
-module.exports = app;
+module.exports = {app, server};
