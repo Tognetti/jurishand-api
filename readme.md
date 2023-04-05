@@ -1,3 +1,5 @@
+[Especificação](Desafio%20Backend%20JurisHand%20-%20Março%202023.pdf)
+
 ## Configuração e conexão com o banco de dados
 
 O arquivo `./sql/script.sql` contém o script de criação do banco de dados, tabela, e inserção de algums dados de exemplo.
